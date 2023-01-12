@@ -6,7 +6,7 @@
 /*   By: vgiordan <vgiordan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:39:28 by vgiordan          #+#    #+#             */
-/*   Updated: 2023/01/10 16:33:49 by vgiordan         ###   ########.fr       */
+/*   Updated: 2023/01/12 13:13:39 by vgiordan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 int main(int argc, char *argv[])
 {
 	char	*message;
-	int		pid;
+	pid_t		pid;
 
 	message = argv[1];
 	pid = atoi(argv[2]);
 
-	kill(pid, message);
+	kill(pid, SIGTERM);
 	printf("message %s, pid %d", message, pid);
 	return 0;
 }
