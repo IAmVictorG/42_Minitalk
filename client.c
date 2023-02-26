@@ -10,12 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
+#include "header.h"
+void	send(unsigned char* msg, pid_t pid)
+{
+	char	c;
+	c = *msg;
+	while(c > 0)
+	{
+		printf("c %d\n", c);
+		if (c % 2 == 0)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		c /= 2;
+		sleep(1);
+	}
+}
 int main(int argc, char *argv[])
 {
 	char	*message;
@@ -23,8 +33,8 @@ int main(int argc, char *argv[])
 
 	message = argv[1];
 	pid = atoi(argv[2]);
-
-	kill(pid, SIGTERM);
-	printf("message %s, pid %d", message, pid);
+	
+	printf("message %s, pid %d\n", message, pid);
+	send(message, pid);
 	return 0;
 }

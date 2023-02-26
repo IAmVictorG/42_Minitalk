@@ -10,29 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
+#include "header.h"
 
 void handler(int num)
 {
-	write(STDOUT_FILENO, "GREGREGEGR\n", 12);
+	if (num == SIGUSR1)
+	{
+		write(1, "0\n", 2);
+	}
+	else if (num == SIGUSR2)
+		write(1, "1\n", 2);
+	else
+		write(1, "ERROR\n", 6);
 }
 
 int main(int argc, char const *argv[])
 {
 	pid_t mypid;
-	signal(SIGINT, handler);
+	struct sigaction sa1;
+	struct sigaction sa2;
+
+	sa1.sa_handler = handler;
+	sa2.sa_handler = handler;
+
+	sigaction(SIGUSR1, &sa1, NULL);
+	sigaction(SIGUSR2, &sa2, NULL);
+	printf("%d\n", getpid());
 	while (1)
 	{
-		printf("%d\n", getpid());
 		sleep(1);
 	}
-	
-
 	return 0;
 }
 
