@@ -12,34 +12,53 @@
 
 #include "header.h"
 
-void handler(int num)
+static void handler(int num)
 {
+	static	int nb;
+	static	int power;
+	int val;
+
+	if (!nb)
+		nb = 0;
+	if (!power)
+		power = 0;
+
 	if (num == SIGUSR1)
 	{
-		write(1, "0\n", 2);
+	
+		power += 1;
 	}
 	else if (num == SIGUSR2)
-		write(1, "1\n", 2);
+	{
+		val = 1 << (power);
+		nb += val;
+		power += 1;
+	}
 	else
+	{
 		write(1, "ERROR\n", 6);
+		exit(1);
+	}
+		
+	if (power == 7)
+	{
+		write (1, &nb, 1);
+		nb = 0;
+		power = 0;
+	}
 }
 
 int main(int argc, char const *argv[])
 {
 	pid_t mypid;
-	struct sigaction sa1;
-	struct sigaction sa2;
+	struct sigaction sa;
 
-	sa1.sa_handler = handler;
-	sa2.sa_handler = handler;
-
-	sigaction(SIGUSR1, &sa1, NULL);
-	sigaction(SIGUSR2, &sa2, NULL);
+	sa.sa_handler = handler;
 	printf("%d\n", getpid());
-	while (1)
-	{
-		sleep(1);
-	}
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	while (42)
+		pause();
 	return 0;
 }
 
