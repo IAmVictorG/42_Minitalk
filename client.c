@@ -6,7 +6,7 @@
 /*   By: vgiordan <vgiordan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:39:28 by vgiordan          #+#    #+#             */
-/*   Updated: 2023/03/03 16:15:13 by vgiordan         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:17:10 by vgiordan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	main(int argc, char *argv[])
 	if (argc == 3)
 	{
 		message = argv[1];
-		//buf[2000] = '\0';
-		//message = buf;
+		buf[2000] = '\0';
+		message = buf;
 		pid = ft_atoi(argv[2]);
 		send_string(message, pid);
 		return (0);
