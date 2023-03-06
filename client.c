@@ -6,7 +6,7 @@
 /*   By: vgiordan <vgiordan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:39:28 by vgiordan          #+#    #+#             */
-/*   Updated: 2023/03/03 16:17:10 by vgiordan         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:18:39 by vgiordan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	send(unsigned char c, pid_t pid)
 {	
 	int	t;
-	int	tt;
 
 	t = c;
-	tt = 1;
 	while (c > 0)
 	{
 		if (c % 2 == 0)
@@ -50,20 +48,14 @@ int	main(int argc, char *argv[])
 {
 	char		*message;
 	pid_t		pid;
-	int			fd;
-	char		buf[2001];
 
-	fd = open("etranger.txt", O_RDONLY);
-	read(fd, buf, 2000);
 	if (argc == 3)
 	{
-		message = argv[1];
-		buf[2000] = '\0';
-		message = buf;
-		pid = ft_atoi(argv[2]);
+		pid = ft_atoi(argv[1]);
+		message = argv[2];
 		send_string(message, pid);
 		return (0);
 	}
 	else
-		ft_putstr_fd("Usage : ./client <message> <pid>\n", 1);
+		ft_putstr_fd("Usage : ./client <pid> <message>\n", 1);
 }

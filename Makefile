@@ -9,20 +9,19 @@ CC		= gcc
 
 RM		= rm -f
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
-
-all: server client
+NAME 	= server client
 
 #$@ = all, $< = server / client
 
-server: server.o
-	make -C libft	
-	$(CC)  -o $@ $< -Llibft -lft
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
-client: client.o
+$(NAME): $(OBJS)
 	make -C libft
-	$(CC) -o $@ $< -Llibft -lft
+	$(CC) -o server server.o -Llibft -lft
+	$(CC) -o client client.o -Llibft -lft
+
+all: $(NAME)
 
 clean:
 	$(RM) $(OBJS)

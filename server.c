@@ -6,7 +6,7 @@
 /*   By: vgiordan <vgiordan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:41:10 by vgiordan          #+#    #+#             */
-/*   Updated: 2023/03/03 16:14:08 by vgiordan         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:25:04 by vgiordan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int	main(void)
 	sa.sa_handler = handler;
 	sa.sa_flags = 1;
 	pid = ft_itoa(getpid());
+	ft_putstr_fd("PID : ", 1);
 	ft_putstr_fd(pid, 1);
+	ft_putstr_fd("\n", 1);
 	free(pid);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
